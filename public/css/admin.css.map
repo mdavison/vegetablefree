@@ -1,0 +1,1 @@
+{"version":3,"sources":["admin.css","admin.less"],"names":[],"mappings":"AAAA;;GAEE;ACCF;EAAO,mBAAA;EDEN","file":"admin.css","sourcesContent":[null,"/**\r\n * Need to add padding to body when using navbar-fixed-top\r\n*/\r\nbody { padding-top: 70px; }"],"sourceRoot":"/source/"}

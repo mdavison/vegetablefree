@@ -1,0 +1,102 @@
+@import "bootstrap/bootstrap";
+@import "variables";
+
+
+//## Color Scheme
+/*@orange: #FF862F;
+@tan: #FFF7E6;
+@brown: #794400;
+@blue: #48D3E8;
+@yellow: #FFDB4B;*/
+/*@blue: #44E6E8;
+@orange: #FF5A35;*/
+
+//## Override Bootstrap default variables
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+/*@gray-base:              @brown;
+@gray-darker:            lighten(@gray-base, 13.5%); // #222
+@gray-dark:              lighten(@gray-base, 20%);   // #333
+@gray:                   lighten(@gray-base, 33.5%); // #555
+@gray-light:             lighten(@gray-base, 46.7%); // #777
+@gray-lighter:           lighten(@gray-base, 93.5%); // #eee
+
+@brand-primary:         darken(@orange, 6.5%);
+@brand-success:         #5cb85c;
+@brand-info:            #5bc0de;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+
+
+@navbar-default-color:  #FFFFFF;
+@navbar-default-bg:     @blue;
+@body-bg:               @tan;
+@text-color:            @brown;
+
+@navbar-default-link-color:                #FFFFFF;
+@navbar-default-link-hover-color:          lighten(@navbar-default-bg, 30%);
+@navbar-default-link-active-color:         #555;
+
+@jumbotron-bg:                   #FFFFFF;
+
+@btn-default-color:              @brown;
+@btn-default-border:             darken(@tan, 6.5%);*/
+
+
+
+/*body, label, .checkbox label {
+	font-weight: 300;
+}*/
+
+//== Need to add padding to body when using navbar-fixed-top
+body { padding-top: 50px; }
+
+.alert {
+  margin-top: 20px;
+}
+
+//== Footer
+footer {
+  padding: 30px;
+  margin-top: 40px;
+  border-top: 1px solid @gray-lighter;
+  color: @gray-light;
+}
+
+//== Animated loading icon
+.glyphicon-refresh-animate {
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+
+//== Thumbnails
+.thumbnail {
+  float: left;
+  margin-right: 15px;
+}
+
+//== Recipes
+.recipe-container {
+  margin-bottom: 30px;
+  text-align: center;
+  width: 200px;
+  /*border: 1px solid red;*/
+  /*background-color: @gray-lighter;*/
+
+}
+.recipe-container .border {
+  border-bottom: 1px solid @gray-lighter;
+  margin: 15px 50px 0;
+}
+
