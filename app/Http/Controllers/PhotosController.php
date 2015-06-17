@@ -5,9 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Photo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Response;
-use Intervention\Image\Facades\Image;
 
 class PhotosController extends Controller {
 
@@ -18,60 +16,81 @@ class PhotosController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-        $token = $request->get('photos_token');
-        $file = $request->file('file');
+        $photo = new Photo();
 
-        if($file) {
-            $filename = time() . '-' . $file->getClientOriginalName();
-            $filesize = $file->getClientSize();
-            $filetype = $file->getMimeType();
-            if ( ! $filesize > 0) {
-                return ['error' => 'Photo is too large'];
-            }
-            // Create the temporary location
-            $filepath = storage_path() . "/app/photos/{$token}";
-
-            if ( ! file_exists($filepath)) {
-                if ( ! mkdir($filepath, 0777, true)) {
-                    return ['error' => 'Unable to create file path.'];
-                }
-            }
-
-            // Crop	& save with Intervention Image
-            $image = Image::make($file);
-            $image->fit(200, 150, function($constraint){
-                $constraint->upsize();
-            })->save("{$filepath}/{$filename}");
-
-            return Response::json('success', 200);
-        }
-
-        return Response::json('error', 400);
+        return $photo->uploadPhoto($request);
 	}
 
     /**
-     * CURRENTLY NOT USING - see note in dropzone.blade.php
-     * Takes an ajax request from the create recipe page
-     * to remove a photo from the UI
+     * Takes an ajax request to remove a photo from the UI
+     * on create or edit recipe pages
      *
      * @param Request $request
      * @return mixed
      */
     public function remove(Request $request)
     {
+        // First, try the storage path - we would be creating a new recipe
         $filepath = storage_path() . "/app/photos/{$request->get('photos_token')}/*";
         $filename = $request->get('filename');
 
         foreach(glob($filepath) as $file) {
-            if( ! is_dir($file)) {
-                $basename = explode('-', basename($file), 2)[1];
-                if ($basename === $filename) {
-                    unlink($file);
-                }
+            if( ( ! is_dir($file)) && basename($file) === $filename) {
+                unlink($file);
+
+                return Response::json('success', 200);
+            }
+        }
+
+        // Then, try the public path - we would be editing existing recipe
+        $filepath = public_path() . "/photos/{$request->get('id')}/*";
+
+        // Delete from db
+        //$photo = $this->getPhotoFromName($filename, $request->get('id'));
+        //$this->destroy($photo->id);
+
+        foreach(glob($filepath) as $file) {
+            if( ( ! is_dir($file)) && basename($file) === $filename) {
+                // Delete photo
+                unlink($file);
+
+                // Delete from db
+                $photo = $this->getPhotoFromName($filename, $request->get('id'));
+                $this->destroy($photo->id);
+
+                // Just delete one and then return out of loop -
+                // BUT, it ends up deleting all photos from file system with same name
+                // but correctly deletes only one from db - can't figure it out
+                return Response::json('success', 200);
             }
         }
 
         return Response::json('success', 200);
     }
 
+    /**
+     * Get photo from filename and recipe id
+     *
+     * @param $filename
+     * @param $recipe_id
+     * @return collection
+     */
+    public function getPhotoFromName($filename, $recipe_id)
+    {
+        return Photo::where(['filename' => $filename, 'recipe_id' => $recipe_id])->first();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $photo = Photo::findOrFail($id);
+        $photo->delete();
+
+        return true;
+    }
 }

@@ -74,8 +74,9 @@ class RecipesController extends Controller {
 	public function edit($id)
 	{
         $recipe = Recipe::with('ingredients')->findOrFail($id);
+        $photos_token = time();
 
-        return view('admin.recipes.edit', compact('recipe'));
+        return view('admin.recipes.edit', compact('recipe', 'photos_token'));
 	}
 
 	/**
@@ -136,6 +137,13 @@ class RecipesController extends Controller {
         }*/
 
         return $setApproval;
+    }
+
+    public function photos(Request $request)
+    {
+        $recipe = Recipe::with('photos')->findOrFail($request->get('id'));
+
+        return $recipe->photos;
     }
 
 }

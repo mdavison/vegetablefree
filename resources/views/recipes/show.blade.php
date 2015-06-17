@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if( ! $recipe->is_approved)
+        <div class="alert alert-warning" role="alert">This recipe hasn't been approved yet.</div>
+    @endif
+
     <h1 class="page-header">{{ $recipe->title }} </h1>
     <p class="text-muted">{{ $recipe->created_at->toFormattedDateString() }}</p>
 

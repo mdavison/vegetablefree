@@ -72,8 +72,8 @@ class RecipesController extends Controller {
             $recipe = Recipe::findOrFail($id);
         }
 
-        // Not allowed to view if not approved
-        if ($recipe->is_approved == false) {
+        // Not allowed to view if not approved and not owner
+        if ( ! $recipe->is_approved && (Auth::user()->id !== $recipe->user_id)) {
             return redirect('recipes');
         }
 
@@ -92,8 +92,9 @@ class RecipesController extends Controller {
         if ( ! $recipe = Recipe::where('slug', '=', $id)->get()) {
             $recipe = Recipe::findOrFail($id);
         }
+        $photos_token = time();
 
-        return view('recipes.edit', compact('recipe'));
+        return view('recipes.edit', compact('recipe', 'photos_token'));
 	}
 
 	/**

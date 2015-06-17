@@ -6,38 +6,68 @@
 @stop
 
 @section('scripts')
-    <script src="/js/dropzone/dropzone.min.js"></script>
+    <script src="/js/vendor/dropzone.min.js"></script>
     <script>
-        Dropzone.options.myDropzone = false;
-        var myDropzone = new Dropzone(".dropzone",
-                {
-                    url: "{{ url('photos/store') }}",
-                    dictDefaultMessage: 'Click or drag photos here to upload.',
-                    //addRemoveLinks: true,
-                    maxFilesize: 2, // MB
-                    maxFiles: 5,
-                    acceptedFiles: "image/*"
-                    //dictRemoveFile: 'Remove'
-                });
+        (function() {
+            Dropzone.options.myDropzone = false;
 
-        // Remove a file
-        // Abandoning this for now:
-        // If the same file was uploaded more than once, removing one of them in the UI will remove
-        // ALL of them on the server but will not reflect that in the UI. No way to match the photo
-        // the user clicked on with the one on the server
-        myDropzone.on("removedfile", function(file) {
+            var recipe_id = $("#recipe_id").val();
+            var numPhotos = $(".thumbnail").length;
+            var maxPhotos = 5 - numPhotos;
             var csrf_token = $('.dropzone input[name=_token]').val();
-            var photos_token = {{ $photos_token }};
-            $.post( "{{ url('photos/remove') }}",
+
+            var myDropzone = new Dropzone(".dropzone",
+                    {
+                        url: "{{ url('photos/store') }}",
+                        dictDefaultMessage: 'Click or drag photos here to upload.',
+                        addRemoveLinks: true,
+                        maxFilesize: 3, // MB
+                        maxFiles: maxPhotos,
+                        acceptedFiles: "image/*",
+                        dictRemoveFile: 'Remove',
+                        headers: { "recipe_id": recipe_id }
+                    });
+
+            // Add existing photos to preview
+            if (recipe_id){
+                $.post( "{{ url('recipes/photos') }}",
                     {
                         _token: csrf_token,
-                        photos_token: photos_token,
-                        filename: file.name,
-                        filesize: file.size  },
+                        id: recipe_id
+                    },
                     function( data ) {
-                        //console.log( data );
-            }, "json");
-        });
+                        for (i=0; i < data.length; i++) {
+                            var file = {name: data[i].filename, size: 12345678};
+                            var filepath = "/photos/" + recipe_id + "/" + data[i].filename;
 
+                            myDropzone.emit("addedfile", file);
+                            myDropzone.emit("thumbnail", file, filepath);
+                            myDropzone.emit("complete", file);
+                        }
+                    }, "json");
+            }
+
+            // Remove a file
+            myDropzone.on("removedfile", function(file) {
+                // If file status is error, don't delete it because it's not there
+                if (file.status !== 'error') {
+                    var photos_token = {{ $photos_token }};
+
+                    $.post( "{{ url('photos/remove') }}",
+                            {
+                                _token: csrf_token,
+                                photos_token: photos_token,
+                                filename: file.name,
+                                id: recipe_id
+                            },
+                            function( data ) {
+                                //console.log( data );
+                            }, "json");
+                }
+            });
+
+        })();
     </script>
+
+
 @stop

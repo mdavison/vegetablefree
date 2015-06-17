@@ -64,6 +64,12 @@ class Recipe extends Model {
         return $this->hasMany('\App\Photo');
     }
 
+    /**
+     * Generate a unique slug for a recipe
+     *
+     * @param $title
+     * @return string
+     */
     public function getUniqueSlug($title)
     {
         $slug = str_slug($title);
@@ -87,16 +93,8 @@ class Recipe extends Model {
         $this->directions = $request->get('directions');
         $this->user_id = Auth::user()->id;
         $this->is_approved = $approved;
-        $this->save();
 
-        // Save the ingredients
-        $this->saveIngredients($request->get('ingredients'));
-
-        // Save the photo
-        //$this->savePhoto($request->file('photo'));
-        $this->savePhotos($request->get('photos_token'));
-
-        return $this;
+        return $this->saveRecipe($request);
     }
 
     /**
@@ -111,10 +109,25 @@ class Recipe extends Model {
         $this->slug = $this->getUniqueSlug($request->get('title'));
         $this->description = $request->get('description');
         $this->directions = $request->get('directions');
+
+        return $this->saveRecipe($request);
+    }
+
+    /**
+     * Save a recipe
+     *
+     * @param Request $request
+     * @return $this
+     */
+    private function saveRecipe(Request $request)
+    {
         $this->save();
 
         // Save the ingredients
         $this->saveIngredients($request->get('ingredients'));
+
+        // Save the photos
+        $this->savePhotos($request->get('photos_token'));
 
         return $this;
     }
@@ -155,8 +168,14 @@ class Recipe extends Model {
     {
         // Get the temp directory for photos
         $dir = storage_path() . "/app/photos/{$token}/*";
+
         // Permanent location
-        $new_dir = public_path() . "/photos/";
+        $new_dir = public_path() . "/photos/{$this->id}/";
+        if ( ! file_exists($new_dir)) {
+            if ( ! mkdir($new_dir, 0777, true)) {
+                return ['error' => 'Unable to create file path.'];
+            }
+        }
 
         // Loop through all photos in directory and save to db
         foreach(glob($dir) as $file) {
@@ -172,8 +191,12 @@ class Recipe extends Model {
         }
 
         // Delete the temp directory
-        rmdir(storage_path() . "/app/photos/{$token}");
-
+        // $temp_dir is the $dir path without the * b/c you need the * with glob() - I don't know why but this works :P
+        $temp_dir = storage_path() . "/app/photos/{$token}"; // $dir path without *
+        // Check that directory exists and it is empty
+        if(is_dir($temp_dir) && (glob($dir) === 0)) {
+            rmdir($temp_dir);
+        }
     }
 
 }

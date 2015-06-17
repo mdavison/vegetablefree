@@ -24,33 +24,12 @@
                     @if($recipe->is_approved)
                         <span class="pull-right"><span class="glyphicon glyphicon-ok-circle" title="Approved" data-toggle="tooltip"></span></span>
                     @else
-                        <span class="pull-right"><span class="glyphicon glyphicon-unchecked" title="Pending Approval" data-toggle="tooltip"></span></span>
+                        <span class="pull-right">Pending Approval</span>
                     @endif
 
                 </li>
             @endforeach
         </ul>
-    </div>
-
-    <div class="row">
-        @foreach($user->recipes as $recipe)
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <div class="caption">
-                        <h3>
-                            {{ $recipe->title }}
-                            @if($recipe->is_approved)
-                                <span class="pull-right"><span class="glyphicon glyphicon-ok-circle" title="Approved" data-toggle="tooltip"></span></span>
-                            @else
-                                <span class="pull-right"><span class="glyphicon glyphicon-unchecked" title="Pending Approval" data-toggle="tooltip"></span></span>
-                            @endif
-                        </h3>
-
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-        @endforeach
     </div>
 
 @stop

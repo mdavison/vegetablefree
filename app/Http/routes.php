@@ -32,5 +32,7 @@ Route::resource('admin/recipes', 'Admin\RecipesController');
 Route::post('admin/recipes/approve', 'Admin\RecipesController@approve');
 
 Route::post('photos/store', 'PhotosController@store');
-
 Route::post('photos/remove', 'PhotosController@remove');
+Route::post('photos/destroy', 'PhotosController@destroy');
+
+Route::post('recipes/photos', 'Admin\RecipesController@photos');

@@ -13,6 +13,15 @@
     <div class="row">
         <div class="col-md-6">
 
+            <p>Add Photos (5 max total)</p>
+            <form action="{{ url('photos/store') }}" class="dropzone" id="my-dropzone">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="photos_token" value="{{ $photos_token }}">
+                <input type="hidden" name="recipe_id" id="recipe_id" value="{{ $recipe->id }}">
+            </form>
+
+            <br>
+
             {!! Form::model($recipe, ['route' => ['admin.recipes.update', $recipe->id], 'method' => 'PATCH']) !!}
 
             @include('partials.forms.recipes.edit')
@@ -35,3 +44,5 @@
     </div><!-- /.row -->
 
 @endsection
+
+@include('partials.dropzone')
