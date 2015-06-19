@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Photo;
 use App\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -121,8 +122,7 @@ class RecipesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        $recipe = Recipe::findOrFail($id);
-        $recipe->delete();
+        $recipe = (new Recipe())->destroyRecipe($id);
 
         return redirect('recipes')->withMessage('Recipe '. $recipe->title . ' was deleted.');
 	}

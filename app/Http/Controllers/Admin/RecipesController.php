@@ -103,12 +103,17 @@ class RecipesController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        $recipe = Recipe::findOrFail($id);
-        $recipe->delete();
+        $recipe = (new Recipe())->destroyRecipe($id);
 
         return redirect('admin/recipes')->withMessage('Recipe '. $recipe->title . ' was deleted.');
 	}
 
+    /**
+     * Approve a recipe
+     *
+     * @param Request $request
+     * @return string
+     */
     public function approve(Request $request)
     {
         $recipe = Recipe::findOrFail($request->get('id'));

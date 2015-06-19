@@ -191,12 +191,22 @@ class Recipe extends Model {
         }
 
         // Delete the temp directory
-        // $temp_dir is the $dir path without the * b/c you need the * with glob() - I don't know why but this works :P
         $temp_dir = storage_path() . "/app/photos/{$token}"; // $dir path without *
         // Check that directory exists and it is empty
-        if(is_dir($temp_dir) && (glob($dir) === 0)) {
+        if(is_dir($temp_dir) && count(glob($dir)) === 0) {
             rmdir($temp_dir);
         }
+    }
+
+    public function destroyRecipe($id)
+    {
+        $recipe = self::findOrFail($id);
+        $recipe->delete();
+
+        $photo = new Photo();
+        $photo->removePhotosForRecipe($id);
+
+        return $recipe;
     }
 
 }

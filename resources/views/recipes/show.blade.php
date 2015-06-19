@@ -12,7 +12,7 @@
         <div class="container-fluid">
         @foreach($recipe->photos as $photo)
             <div class="thumbnail">
-                <img src="/photos/{{ $photo->filename }}"
+                <img src="/photos/{{ $recipe->id }}/{{ $photo->filename }}"
                      alt="{{ $photo->filename }}"
                      class="img-responsive">
             </div>
