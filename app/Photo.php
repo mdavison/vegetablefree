@@ -75,7 +75,7 @@ class Photo extends Model {
             if ( (! empty($recipe_id)) && file_exists(public_path() . "/photos/{$recipe_id}/{$filename}")) {
                 return Response::json('Photo with same name already exists.', 400);
             }
-            
+
             // Create the temporary location
             if ( ! file_exists($filepath)) {
                 if ( ! mkdir($filepath, 0777, true)) {
