@@ -63,7 +63,12 @@ class Photo extends Model {
             $filepath = storage_path() . "/app/photos/{$token}";
 
             // Check if allowed to upload any more
-            if ($this->maxPhotosLimitReached($filepath . "/*", public_path() . "/photos/{$recipe_id}/*")) {
+            if ($recipe_id) {
+                $photoLimitReached = $this->maxPhotosLimitReached($filepath . "/*", public_path() . "/photos/{$recipe_id}/*");
+            } else {
+                $photoLimitReached = $this->maxPhotosLimitReached($filepath . "/*");
+            }
+            if ($photoLimitReached) {
                 return Response::json('Sorry! Too many photos.', 400);
             }
 
@@ -190,10 +195,16 @@ class Photo extends Model {
         return Response::json('success', 200);
     }
 
-    private function maxPhotosLimitReached($temp_dir, $public_dir)
+    private function maxPhotosLimitReached($temp_dir, $public_dir = null)
     {
         $temp_dir_count = count(glob($temp_dir));
-        $public_dir_count = count(glob($public_dir));
+
+        if ($public_dir) {
+            $public_dir_count = count(glob($public_dir));
+        } else {
+            $public_dir_count = 0;
+        }
+
 
         if (($temp_dir_count + $public_dir_count) < $this->maxPhotos) {
             return false;
