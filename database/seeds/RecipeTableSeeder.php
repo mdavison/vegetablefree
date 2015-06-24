@@ -14,50 +14,55 @@ class RecipeTableSeeder extends Seeder{
 
         Recipe::create([
             'id'            => 1,
-            'title'         => 'Hamburgers',
-            'slug'          => 'hamburgers',
-            'description'   => 'Great recipe to incorporate bacon.',
-            'directions'          => 'Bacon ipsum dolor amet tail short loin filet mignon, picanha turducken spare ribs corned beef turkey ground round shoulder beef ribs. Picanha bacon pancetta frankfurter porchetta boudin pork chop landjaeger pig drumstick spare ribs beef ribs biltong tenderloin short loin. Pork loin leberkas turducken tail tongue kielbasa salami spare ribs beef ribs corned beef beef venison cupim brisket rump. Chuck frankfurter meatball, andouille tri-tip tail hamburger jowl bresaola beef salami ham hock sausage. Beef short ribs cow, flank andouille salami shank prosciutto meatball ham filet mignon sirloin. Filet mignon tail flank spare ribs fatback turducken turkey. Picanha bacon alcatra leberkas turkey shankle ball tip beef ribeye tail meatball boudin kevin pork chop flank.
-Shankle prosciutto bresaola salami, rump shank doner chicken ham hock drumstick. Swine spare ribs short loin, leberkas pig landjaeger filet mignon. Shank swine tongue meatloaf pork loin short loin frankfurter pancetta boudin landjaeger capicola drumstick salami. Filet mignon capicola t-bone ham.
-Pork belly bresaola tenderloin, boudin cow leberkas ball tip shoulder corned beef shank pig biltong. Biltong pork loin drumstick fatback. Frankfurter porchetta pork chop pork chicken shank, sausage short ribs pig. Boudin kevin bacon hamburger pork belly. Beef ribs shoulder turkey salami.
-Pancetta short ribs chuck meatloaf prosciutto. Venison pork chop capicola jerky, leberkas chuck tail meatball spare ribs alcatra doner tri-tip. Short ribs tongue rump picanha bresaola biltong meatloaf kevin. Prosciutto ham hock bresaola alcatra, biltong beef tenderloin turducken filet mignon short loin.
-Meatloaf sirloin filet mignon ground round. Pig sirloin pork meatball ground round ham hock jerky flank porchetta brisket drumstick pork chop andouille. Kielbasa venison t-bone cow ribeye filet mignon chuck pork chop shank pig jowl tail. Kevin shoulder porchetta tri-tip kielbasa beef ribs flank.',
+            'title'         => 'Chili',
+            'slug'          => 'chili',
+            'description'   => 'No chunks of tomatoes or onions!',
+            'directions'          =>
+                "1. Brown ground beef until no longer pink. Drain and return to stove.<br>
+                 2. Add garlic cloves to beef and cook until fragrant, about 20-30 seconds.<br>
+                 3. Mix everything together into crockpot and cook on low for 6-8 hours.",
             'user_id'       => 1,
             'is_approved'   => 1
         ]);
 
         Recipe::create([
             'id'            => 2,
-            'title'         => 'Steak',
-            'slug'          => 'steak',
-            'description'   => 'Great recipe to incorporate bacon.',
-            'directions'          => 'Shankle prosciutto bresaola salami, rump shank doner chicken ham hock drumstick. Swine spare ribs short loin, leberkas pig landjaeger filet mignon. Shank swine tongue meatloaf pork loin short loin frankfurter pancetta boudin landjaeger capicola drumstick salami. Filet mignon capicola t-bone ham.
-Pork belly bresaola tenderloin, boudin cow leberkas ball tip shoulder corned beef shank pig biltong. Biltong pork loin drumstick fatback. Frankfurter porchetta pork chop pork chicken shank, sausage short ribs pig. Boudin kevin bacon hamburger pork belly. Beef ribs shoulder turkey salami.
-Pancetta short ribs chuck meatloaf prosciutto. Venison pork chop capicola jerky, leberkas chuck tail meatball spare ribs alcatra doner tri-tip. Short ribs tongue rump picanha bresaola biltong meatloaf kevin. Prosciutto ham hock bresaola alcatra, biltong beef tenderloin turducken filet mignon short loin.
-Meatloaf sirloin filet mignon ground round. Pig sirloin pork meatball ground round ham hock jerky flank porchetta brisket drumstick pork chop andouille. Kielbasa venison t-bone cow ribeye filet mignon chuck pork chop shank pig jowl tail. Kevin shoulder porchetta tri-tip kielbasa beef ribs flank.',
+            'title'         => 'Chocolate Pudding',
+            'slug'          => 'chocolate-pudding',
+            'description'   => 'Simple but rich!',
+            'directions'    =>
+                "1. Heat the milk and cream in saucepan over medium heat until bubbles form around the edges<br>
+                 2. Mix the sugar, cocoa powder, salt, and cornstarch together in a small bowl.<br>
+                 3. Take 1/2 cup of the liquid and whisk rapidly into the dry ingredients. Then add everything back into the pan.<br>
+                 4. Cook over medium-low heat, whisking constantly, until thick and boiling.<br>
+                 5. Stir in vanilla.",
             'user_id'       => 1,
             'is_approved'   => 1
         ]);
 
         Recipe::create([
             'id'            => 3,
-            'title'         => 'Bread',
-            'slug'          => 'bread',
-            'description'   => 'Great recipe to incorporate bacon.',
-            'directions'          => 'Bresaola sint prosciutto meatball swine. Alcatra nostrud exercitation t-bone cillum. Veniam frankfurter adipisicing, pastrami mollit pork chop shankle officia tail qui consequat ham fatback. Ground round ullamco bacon elit. Biltong pariatur pastrami duis cupim consequat t-bone. Bacon duis strip steak, ground round nulla qui ball tip doner filet mignon lorem turducken commodo alcatra. Prosciutto enim velit tempor shoulder pork loin ea spare ribs doner sed salami minim cillum t-bone tongue.',
-            'user_id'       => 2
+            'title'         => 'Medium Boiled Eggs',
+            'slug'          => 'medium-boiled-eggs',
+            'description'   => 'Not runny but not hard. You might have to experiment with the time to get them perfect. This is what works on my stove with my pan.',
+            'directions'    => "1. Place the eggs in a medium saucepan. Add enough water to just cover the eggs. Put the pan on the stove and cook over high heat for 12 minutes.<br>
+                                2. Meanwhile, prepare a large bowl of ice water.<br>
+                                3. When the timer goes off, immediately remove the pan from the stove, drain the cooking water and dump the eggs into the ice water. Let sit for 30 seconds before peeling.<br>
+                                4. To peel, smash egg all over and on large end. Starting on large end, peel shell, making sure to get under the \"skin\". The shell should come off in almost one piece.",
+            'user_id'       => 2,
+            'is_approved'   => 1
         ]);
 
         Recipe::create([
             'id'            => 4,
-            'title'         => 'Ice Cream',
-            'slug'          => 'ice-cream',
-            'description'   => 'Great recipe to incorporate bacon.',
-            'directions'          => 'Bacon ipsum dolor amet tail short loin filet mignon, picanha turducken spare ribs corned beef turkey ground round shoulder beef ribs. Picanha bacon pancetta frankfurter porchetta boudin pork chop landjaeger pig drumstick spare ribs beef ribs biltong tenderloin short loin. Pork loin leberkas turducken tail tongue kielbasa salami spare ribs beef ribs corned beef beef venison cupim brisket rump. Chuck frankfurter meatball, andouille tri-tip tail hamburger jowl bresaola beef salami ham hock sausage. Beef short ribs cow, flank andouille salami shank prosciutto meatball ham filet mignon sirloin. Filet mignon tail flank spare ribs fatback turducken turkey. Picanha bacon alcatra leberkas turkey shankle ball tip beef ribeye tail meatball boudin kevin pork chop flank.
-Shankle prosciutto bresaola salami, rump shank doner chicken ham hock drumstick. Swine spare ribs short loin, leberkas pig landjaeger filet mignon. Shank swine tongue meatloaf pork loin short loin frankfurter pancetta boudin landjaeger capicola drumstick salami. Filet mignon capicola t-bone ham.
-Pork belly bresaola tenderloin, boudin cow leberkas ball tip shoulder corned beef shank pig biltong. Biltong pork loin drumstick fatback. Frankfurter porchetta pork chop pork chicken shank, sausage short ribs pig. Boudin kevin bacon hamburger pork belly. Beef ribs shoulder turkey salami.
-Pancetta short ribs chuck meatloaf prosciutto. Venison pork chop capicola jerky, leberkas chuck tail meatball spare ribs alcatra doner tri-tip. Short ribs tongue rump picanha bresaola biltong meatloaf kevin. Prosciutto ham hock bresaola alcatra, biltong beef tenderloin turducken filet mignon short loin.
-Meatloaf sirloin filet mignon ground round. Pig sirloin pork meatball ground round ham hock jerky flank porchetta brisket drumstick pork chop andouille. Kielbasa venison t-bone cow ribeye filet mignon chuck pork chop shank pig jowl tail. Kevin shoulder porchetta tri-tip kielbasa beef ribs flank.',
+            'title'         => 'Egg Drop Soup',
+            'slug'          => 'egg-drop-soup',
+            'description'   => 'So easy!',
+            'directions'    => "1. Reserve 3/4 cup of chicken broth.<br>
+                                2. Pour the rest into a saucepan, add the ginger, and bring to a rolling boil.<br>
+                                3. In a cup or small bowl, stir together the remaining broth and cornstarch until smooth. Set aside.<br>
+                                4. In a small bowl, whisk the eggs and egg yolk together using a fork. Drizzle egg a little at a time from the fork into the boiling broth mixture. Egg should cook immediately.<br>
+                                5. Stir in the cornstarch mixture gradually until the soup is the desired consistency.",
             'user_id'       => 2
         ]);
 
