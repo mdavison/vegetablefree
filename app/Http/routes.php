@@ -20,17 +20,28 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+
+/*
+ * Users
+ */
 Route::resource('users', 'UsersController',
                 ['except' => ['index', 'create', 'store']]);
-
-Route::resource('recipes', 'RecipesController');
-
 Route::resource('admin/users', 'Admin\UsersController');
 
-Route::resource('admin/recipes', 'Admin\RecipesController');
 
+/*
+ * Recipes
+ */
+Route::resource('recipes', 'RecipesController', ['except' => ['show']]);
+// Prevent a naming clash in case recipe slug same as resource action
+Route::get('recipes/view/{slug}', 'RecipesController@show');
+Route::resource('admin/recipes', 'Admin\RecipesController');
 Route::post('admin/recipes/approve', 'Admin\RecipesController@approve');
 
+
+/*
+ * Photos
+ */
 Route::post('photos/store', 'PhotosController@store');
 Route::post('photos/remove', 'PhotosController@remove');
 Route::post('photos/destroy', 'PhotosController@destroy');

@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Validator;
 
@@ -71,16 +72,15 @@ class AuthController extends Controller {
      */
     public function postRegister(Request $request)
     {
-        $validator = $this->registrar->validator($request->all());
+        $validator = $this->validator($request->all());
 
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             $this->throwValidationException(
                 $request, $validator
             );
         }
 
-        $user = $this->registrar->create($request->all());
+        $user = $this->create($request->all());
 
         // Send confirmation email
         $data = ['to' => $user->email, 'verification_token' => $user->verification_token];
@@ -117,8 +117,7 @@ class AuthController extends Controller {
             'is_verified' => true
         ];
 
-        if ($this->auth->attempt($credentials, $request->has('remember')))
-        {
+        if (Auth::attempt($credentials, $request->has('remember'))) {
             return redirect()->intended($this->redirectPath());
         }
 

@@ -12,14 +12,14 @@
                             @if(count($recipe->photos))
                                 @foreach($recipe->photos as $key => $photo)
                                     @if($key === 0)
-                                        <a href="/recipes/{{ $recipe->slug }}">
+                                        <a href="/recipes/view/{{ $recipe->slug }}">
                                             <img src="/photos/{{ $recipe->id }}/{{ $photo->filename }}" alt="{{ $photo->filename }}">
                                         </a>
                                     @endif
                                 @endforeach
                             @endif
 
-                            <h3><a href="/recipes/{{ $recipe->slug }}">{{ $recipe->title }}</a></h3>
+                            <h3><a href="/recipes/view/{{ $recipe->slug }}">{{ $recipe->title }}</a></h3>
 
                             {{ $recipe->description }}
 

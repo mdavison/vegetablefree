@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use App\Events\RecipeWasDeleted;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -203,8 +204,7 @@ class Recipe extends Model {
         $recipe = self::findOrFail($id);
         $recipe->delete();
 
-        $photo = new Photo();
-        $photo->removePhotosForRecipe($id);
+        event(new RecipeWasDeleted($recipe));
 
         return $recipe;
     }

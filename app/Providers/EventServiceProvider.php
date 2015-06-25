@@ -11,9 +11,10 @@ class EventServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $listen = [
-		'event.name' => [
-			'EventListener',
-		],
+        'App\Events\RecipeWasDeleted' => [
+            'App\Listeners\DeletePhotos',
+            'App\Listeners\DeleteIngredients',
+        ],
 	];
 
 	/**
