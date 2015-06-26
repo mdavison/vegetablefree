@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -126,6 +127,39 @@ class Photo extends Model {
         }
 
         return true;
+    }
+
+    /**
+     * Delete photos and directories from /storage/app/photos
+     *
+     * @return array
+     */
+    public function clearTempPhotoStorage()
+    {
+        $photos_path = storage_path() . "/app/photos/*";
+        $old = strtotime("-1 day"); // timestamp 24 hours ago
+        $items_deleted = [];
+
+        foreach(glob($photos_path) as $photos_dir) {
+            if(is_dir($photos_dir)) {
+                // Check if old enough to delete
+                if (intval(basename($photos_dir)) < $old) {
+                    // Delete all the photos
+                    foreach(glob($photos_dir . "/*") as $file) {
+                        $items_deleted[] = basename($file);
+                        unlink($file);
+                    }
+
+                    // Delete the directory
+                    if (count(glob($photos_dir . "/*")) === 0) {
+                        $items_deleted[] = basename($photos_dir);
+                        rmdir($photos_dir);
+                    }
+                }
+            }
+        }
+
+        return $items_deleted;
     }
 
     /**

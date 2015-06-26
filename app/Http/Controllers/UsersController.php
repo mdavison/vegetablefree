@@ -64,12 +64,7 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        $user = User::findOrFail($id);
-        $user->delete(); // soft delete
-
-        // Delete all recipes by this user
-
-        // Todo: send them a goodbye email
+        (new User())->destroyUser($id);
 
         return redirect('/')->withMessage('Your account has been deleted.');
 	}

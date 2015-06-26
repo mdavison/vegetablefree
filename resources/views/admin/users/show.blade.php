@@ -19,11 +19,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">User Recipes</div>
         <ul class="list-group">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+            @foreach($user->recipes as $recipe)
+                <li class="list-group-item">{!! link_to("/recipes/{$recipe->id}", $recipe->title) !!}
+                    @if($recipe->is_approved)
+                        <span class="pull-right"><span class="glyphicon glyphicon-ok-circle" title="Approved" data-toggle="tooltip"></span></span>
+                    @else
+                        <span class="pull-right">Pending Approval</span>
+                    @endif
+
+                </li>
+            @endforeach
         </ul>
     </div>
 

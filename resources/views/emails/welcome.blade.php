@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Welcome to Vegetable Free</title>
 </head>
 <body>
 <h1>Welcome to vegetablefree.com!</h1>

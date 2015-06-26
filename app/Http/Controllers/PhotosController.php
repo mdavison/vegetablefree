@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Jobs\ClearTempPhotoStorage;
 use App\Photo;
 use Illuminate\Http\Request;
 use Response;
@@ -42,5 +43,15 @@ class PhotosController extends Controller {
         $photo->delete();
 
         return true;
+    }
+
+    /**
+     * Dispatch a job to clear out the storage/app/photos directory
+     */
+    public function clearTempStorage()
+    {
+        $job = new ClearTempPhotoStorage();
+
+        return $this->dispatch($job);
     }
 }

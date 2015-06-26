@@ -47,3 +47,9 @@ Route::post('photos/remove', 'PhotosController@remove');
 Route::post('photos/destroy', 'PhotosController@destroy');
 
 Route::post('recipes/photos', 'Admin\RecipesController@photos');
+
+
+/**
+ * Jobs
+ */
+Route::get('photos/clear-temp-storage', 'PhotosController@clearTempStorage');

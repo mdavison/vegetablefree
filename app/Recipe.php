@@ -199,6 +199,12 @@ class Recipe extends Model {
         }
     }
 
+    /**
+     * Delete recipe
+     *
+     * @param $id
+     * @return mixed
+     */
     public function destroyRecipe($id)
     {
         $recipe = self::findOrFail($id);
@@ -207,6 +213,25 @@ class Recipe extends Model {
         event(new RecipeWasDeleted($recipe));
 
         return $recipe;
+    }
+
+    /**
+     * Delete all recipes for a user
+     *
+     * @param $user_id
+     * @return bool
+     */
+    public function deleteRecipesForUser($user_id)
+    {
+        $recipes = self::where('user_id', '=', $user_id)->get();
+
+        if (count($recipes)) {
+            foreach ($recipes as $recipe) {
+                $this->destroyRecipe($recipe->id);
+            }
+        }
+
+        return true;
     }
 
 }

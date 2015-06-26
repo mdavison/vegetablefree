@@ -1,5 +1,6 @@
 <?php namespace App;
 
+use App\Events\UserWasDeleted;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -8,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -117,6 +119,41 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $this->verification_token = null;
 
         $this->save();
+    }
+
+    /**
+     * Delete a user
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function destroyUser($id)
+    {
+        $user = self::findOrFail($id);
+        $user->delete();
+
+        event(new UserWasDeleted($user));
+
+        return $user;
+    }
+
+    /**
+     * Send email to user when their account is deleted
+     *
+     * @param $user_id
+     * @return mixed
+     */
+    public function sendEmailDeletedAccount($user_id)
+    {
+        $user = self::withTrashed()->where('id', $user_id)->first();
+
+        $data = ['to' => $user->email];
+
+        $sent = Mail::send('emails.account-deleted', $data, function($message) use ($data) {
+            $message->to($data['to'])->subject('Account Deleted');
+        });
+
+        return $sent;
     }
 
 }

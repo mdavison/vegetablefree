@@ -15,6 +15,10 @@ class EventServiceProvider extends ServiceProvider {
             'App\Listeners\DeletePhotos',
             'App\Listeners\DeleteIngredients',
         ],
+        'App\Events\UserWasDeleted' => [
+            'App\Listeners\DeleteRecipes',
+            'App\Listeners\EmailUserAccountDeleted',
+        ],
 	];
 
 	/**

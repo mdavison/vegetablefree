@@ -99,8 +99,7 @@ class UsersController extends Controller {
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete(); // Soft delete
+        $user = (new User())->destroyUser($id);
 
         return redirect('admin/users')->withMessage($user->username . ' was deleted.');
     }
