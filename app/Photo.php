@@ -159,6 +159,7 @@ class Photo extends Model {
             }
         }
 
+        //dd($items_deleted);
         return $items_deleted;
     }
 

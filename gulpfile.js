@@ -21,9 +21,12 @@ elixir(function(mix) {
         'vendor/jquery-1.11.3.min.js',
         'vendor/bootstrap-3.3.4.min.js',
         'vendor/bootbox.4.4.0.min.js',
+        'vendor/vue-0.12.4.min.js',
+        'vendor/marked-0.3.3.min.js',
         'bootbox.js',
         'approve-recipe.js',
-        'add-ingredients.js'
+        'add-ingredients.js',
+        'vue-editor.js'
     ], null, './resources/assets/js');
 
 });

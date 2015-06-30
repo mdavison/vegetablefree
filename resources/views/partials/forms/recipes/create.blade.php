@@ -29,10 +29,25 @@
     <a class="btn btn-default" id="add-ingredient">+ Add Ingredient</a>
 </div>
 
-<div class="form-group">
-    {!! Form::label('directions', 'Directions: ') !!}
-    {!! Form::textarea('directions', null, ['class' => 'form-control', 'required' => 'required', 'rows' => '20']) !!}
-    {!! $errors->first('directions', '<span class="text-danger">:message</span>') !!}
-</div>
+<div id="markdown-editor">
+    <div class="form-group">
+        {!! Form::label('directions', 'Directions: (You can use markdown)') !!}
+        {!! Form::textarea('directions', null, [
+            'class' => 'form-control',
+            'id' => 'directions',
+            'required' => 'required',
+            'rows' => '20',
+            'v-model' => 'input'
+        ]) !!}
+        {!! $errors->first('directions', '<span class="text-danger">:message</span>') !!}
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5 class="panel-title">Directions Preview:</h5>
+        </div>
+        <div class="panel-body" v-html="input | marked"></div>
+    </div>
+</div><!-- /#markdown-editor -->
 
 {!! Form::button('Save', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
