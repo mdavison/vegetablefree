@@ -29,7 +29,7 @@
 							<div class="col-md-6 col-md-offset-4">
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" name="remember"> Remember Me
+										<input type="checkbox" checked name="remember"> Remember Me
 									</label>
 								</div>
 							</div>
