@@ -7,7 +7,10 @@
     </div>
     <hr>
     <div class="subfooter">
-        <p class="pull-left">&#169; Vegetable Free 2015. All rights reserved.</p>
-        <p class="pull-right">Proudly hosted with <a>DigitalOcean</a></p>
+        <p>
+            Hosted with <a href="https://www.digitalocean.com/?refcode=938e5a4a818b">DigitalOcean</a><br>
+            <small>Get $10 credit if you sign up through <a href="https://www.digitalocean.com/?refcode=938e5a4a818b">this link</a>.</small>
+        </p>
+
     </div>
 </footer>
