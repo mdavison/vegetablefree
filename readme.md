@@ -1,6 +1,6 @@
 ## Recipes Site
 
-Basic recipe site built on the Laravel framework
+Basic recipe site being built on the Laravel framework.
 
 ### License
 
